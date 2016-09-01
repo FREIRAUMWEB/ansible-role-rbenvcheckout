@@ -48,7 +48,10 @@
 - name: create .gemrc
   file:
     path: "{{ rbenv_home }}/.gemrc"
-    state: file
+    owner: "{{ rbenv_user }}"
+    group: "{{ rbenv_user }}"
+    mode: 0644
+    state: touch
   when: rbenv_disable_gem_documentation
 
 - name: disable installation of gem documentations
