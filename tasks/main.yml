@@ -43,7 +43,7 @@
   lineinfile:
     dest: "{{ rbenv_home }}/.bashrc"
     line: 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"'
-    state: present
+    state: file
 
 - name: create .gemrc
   file:
