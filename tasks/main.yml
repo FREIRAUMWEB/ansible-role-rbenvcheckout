@@ -65,7 +65,13 @@
     update: "{{ item.update }}"
   with_items: "{{ rbenv_plugins }}"
 
+- name: install ruby
+  shell: "rbenv install {{ rbenv_install_ruby }}"
+  when: rbenv_install_ruby
+  become: yes
+  become_user: "{{ rbenv_user }}"
+
 - name: install bundler
-  shell: gem install bundler
+  shell: "gem install bundler"
   become: yes
   become_user: "{{ rbenv_user }}"
