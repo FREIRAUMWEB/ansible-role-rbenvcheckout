@@ -45,6 +45,12 @@
     line: 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"'
     state: present
 
+- name: create .gemrc
+  file:
+    path: "{{ rbenv_home }}/.gemrc"
+    state: present
+  when: rbenv_disable_gem_documentation
+
 - name: disable installation of gem documentations
   lineinfile:
     dest: "{{ rbenv_home }}/.gemrc"
