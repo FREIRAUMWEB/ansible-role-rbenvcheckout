@@ -1,0 +1,11 @@
+---
+rbenv_user: deploy
+rbenv_home: /home/{{ rbenv_user }}
+rbenv_root: "{{ rbenv_home }}/.rbenv"
+
+rbenv_install_gems:
+  - bundler
+rbenv_plugins: []
+
+rbenv_install_ruby: 2.3.0
+rbenv_disable_gem_documentation: yes

@@ -1,0 +1,61 @@
+---
+- name: install dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - curl
+    - zlib1g-dev
+    - libssl-dev
+    - libffi-dev
+    - libyaml-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - build-essential
+    - libreadline-dev
+    - libcurl4-openssl-dev
+    - python-software-properties
+
+- name: checkout most recent version of rbenv
+  git:
+    repo: https://github.com/rbenv/rbenv.git
+    dest: "{{ rbenv_root }}"
+    update: yes
+
+- name: rbenv config
+  lineinfile:
+    dest: "{{ rbenv_home }}/.bashrc"
+    line: "{{ item }}"
+    state: present
+  with_items:
+    - 'export PATH="$HOME/.rbenv/bin:$PATH"'
+    - 'eval "$(rbenv init -)"'
+
+- name: install most recent version of ruby-build plugin for rbenv
+  git:
+    repo: https://github.com/rbenv/ruby-build.git
+    dest: "{{ rbenv_root }}/plugins/ruby-build"
+    update: yes
+
+- name: rbenv ruby-build config
+  lineinfile:
+    dest: "{{ rbenv_home }}/.bashrc"
+    line: 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"'
+    state: present
+
+- name: disable installation of gem documentations
+  lineinfile:
+    dest: "{{ rbenv_home }}/.gemrc"
+    line: 'gem: --no-document'
+    state: present
+  when: rbenv_disable_gem_documentation
+
+- name: install more plugins
+  git:
+    repo: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    update: "{{ item.update }}"
+  with_items: "{{ rbenv_plugins }}"
+
+- name: install bundler
+  shell: gem install bundler
+  become: yes
+  become_user: "{{ rbenv_user }}"
