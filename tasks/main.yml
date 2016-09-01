@@ -70,7 +70,7 @@
 
 - name: install Ruby
   shell: "rbenv install {{ rbenv_install_ruby_version }}"
-  when: rbenv_install_ruby
+  when: rbenv_install_ruby_version
   become: yes
   become_user: "{{ rbenv_user }}"
 
