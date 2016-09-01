@@ -1,5 +1,6 @@
 ---
 rbenv_user: deploy
+rbenv_create_user: yes
 rbenv_home: /home/{{ rbenv_user }}
 rbenv_root: "{{ rbenv_home }}/.rbenv"
 

@@ -14,6 +14,10 @@
     - libcurl4-openssl-dev
     - python-software-properties
 
+- name: create rbenv user if not present
+  user: name={{ rbenv_user }} shell=/bin/bash groups=sudo append=yes
+  when: rbenv_create_user
+
 - name: checkout most recent version of rbenv
   git:
     repo: https://github.com/rbenv/rbenv.git
