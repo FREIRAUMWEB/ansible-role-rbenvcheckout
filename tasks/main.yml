@@ -69,12 +69,12 @@
   with_items: "{{ rbenv_plugins }}"
 
 - name: install Ruby
-  shell: "rbenv install {{ rbenv_install_ruby_version }}"
+  shell: bash -lc rbenv install {{ rbenv_install_ruby_version }}
   become: yes
   become_user: "{{ rbenv_user }}"
 
 - name: activate Ruby
-  shell: "rbenv {{ rbenv_ruby_availability }} {{ rbenv_install_ruby_version }}"
+  shell: bash -lc  rbenv {{ rbenv_ruby_availability }} {{ rbenv_install_ruby_version }}
 
 - name: install bundler
   shell: "gem install bundler"
