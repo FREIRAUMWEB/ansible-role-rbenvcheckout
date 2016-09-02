@@ -10,4 +10,4 @@ rbenv_plugins: []
 
 rbenv_install_ruby_version: 2.3.0
 rbenv_ruby_availability: global
-rbenv_disable_gem_documentation: yes
+rbenv_disable_gem_documentation: true
